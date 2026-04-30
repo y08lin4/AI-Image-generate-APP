@@ -84,3 +84,23 @@ npm run sync
 - WebView 的本地历史和手机浏览器历史不是同一份。
 - 图片下载、剪贴板、文件选择建议在真机上完整测试。
 - 长时间生图时，请尽量保持 App 在前台，避免被系统后台限制中断。
+
+## GitHub Actions 自动打包
+
+仓库内置 `.github/workflows/build-apk.yml`，可以在 GitHub 页面手动运行：
+
+```text
+Actions -> Build Android APK -> Run workflow
+```
+
+运行完成后，在 workflow 的 Artifacts 里下载：
+
+```text
+ai-image-generate-debug-apk
+```
+
+其中包含 debug APK：
+
+```text
+app-debug.apk
+```
