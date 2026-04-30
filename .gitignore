@@ -6,3 +6,6 @@ android/build/
 *.iml
 local.properties
 release/
+.signing/
+android/keystore.properties
+android/app/keystore/

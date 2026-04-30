@@ -10,19 +10,19 @@ https://ai-image.ailinyu.dpdns.org/
 
 ## 下载
 
-测试包在 Release 里：
+安装包在 Release 里：
 
 ```text
-https://github.com/y08lin4/AI-Image-generate-APK/releases/tag/v0.1.0-debug
+https://github.com/y08lin4/AI-Image-generate-APK/releases
 ```
 
-当前 APK：
+推荐下载 release 签名版：
 
 ```text
-AI-Image-generate-debug.apk
+AI-Image-generate-release-signed.apk
 ```
 
-> 这是 debug 测试包，适合自己安装测试；正式分发前建议再做 release 签名版。
+debug 包仅用于临时测试。
 
 ## 项目信息
 
@@ -39,12 +39,14 @@ AI-Image-generate-debug.apk
 npm install
 npm run sync
 npm run android:build:debug
+npm run android:build:release
 ```
 
 APK 输出位置：
 
 ```text
 android/app/build/outputs/apk/debug/app-debug.apk
+android/app/build/outputs/apk/release/app-release.apk
 ```
 
 也可以用 Android Studio 打开：
@@ -61,7 +63,10 @@ npm run open
 Actions -> Build Android APK -> Run workflow
 ```
 
-完成后在 Artifacts 下载 debug APK。
+完成后在 Artifacts 下载：
+
+- `ai-image-generate-release-signed-apk`
+- `ai-image-generate-debug-apk`
 
 ## 备注
 
