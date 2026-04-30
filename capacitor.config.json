@@ -1,0 +1,23 @@
+﻿{
+  "appId": "com.ailinyu.aiimagegenerate",
+  "appName": "AI Image Generate",
+  "webDir": "www",
+  "server": {
+    "url": "https://ai-image.ailinyu.dpdns.org/",
+    "cleartext": false,
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 800,
+      "launchAutoHide": true,
+      "backgroundColor": "#f6f7fb",
+      "androidSplashResourceName": "splash",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#f6f7fb"
+    }
+  }
+}

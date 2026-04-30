@@ -1,0 +1,35 @@
+{
+  "name": "ai-image-generate-apk",
+  "version": "1.0.0",
+  "description": "AI Image Generate 安卓 WebView 壳应用",
+  "scripts": {
+    "sync": "cap sync android",
+    "open": "cap open android",
+    "android:add": "cap add android",
+    "android:build:debug": "cd android && gradlew.bat assembleDebug",
+    "android:build:release": "cd android && gradlew.bat assembleRelease"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/y08lin4/AI-Image-generate-APK.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/y08lin4/AI-Image-generate-APK/issues"
+  },
+  "homepage": "https://github.com/y08lin4/AI-Image-generate-APK#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.3.1",
+    "@capacitor/app": "^8.1.0",
+    "@capacitor/core": "^8.3.1",
+    "@capacitor/splash-screen": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.3.1"
+  },
+  "private": false
+}
