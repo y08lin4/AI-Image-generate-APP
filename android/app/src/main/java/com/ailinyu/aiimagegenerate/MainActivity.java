@@ -130,7 +130,7 @@ public class MainActivity extends BridgeActivity {
                     output.write(image.bytes);
                 }
 
-                Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", file);
+                Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
                 ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard == null) return "error:clipboard unavailable";
                 clipboard.setPrimaryClip(ClipData.newUri(context.getContentResolver(), "AI Image Generate", uri));
