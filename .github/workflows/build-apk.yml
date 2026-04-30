@@ -40,7 +40,7 @@ jobs:
           mkdir -p android/app/keystore
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/keystore/release.jks
           {
-            echo "storeFile=app/keystore/release.jks"
+            echo "storeFile=keystore/release.jks"
             echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
             echo "keyAlias=$ANDROID_KEY_ALIAS"
             echo "keyPassword=$ANDROID_KEY_PASSWORD"
