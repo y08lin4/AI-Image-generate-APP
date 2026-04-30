@@ -5,7 +5,7 @@ android/build/
 .DS_Store
 *.iml
 local.properties
-release/
+release*/
 .signing/
 android/keystore.properties
 android/app/keystore/
