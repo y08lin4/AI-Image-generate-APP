@@ -1,106 +1,70 @@
 ﻿# AI Image Generate APK
 
-这是 AI Image Generate 的安卓壳应用项目：使用 Capacitor 内嵌 WebView，直接打开线上 Web 站点。
-
-- 内嵌地址：`https://ai-image.ailinyu.dpdns.org/`
-- App ID：`com.ailinyu.aiimagegenerate`
-- App 名称：`AI Image Generate`
-
-## 方案说明
-
-本项目不重写前端页面，只把现有 Web 站点打包进 Android App：
+AI Image Generate 的安卓壳应用。它不重写前端，只用 Capacitor WebView 内嵌线上站点：
 
 ```text
-Android App -> Capacitor WebView -> https://ai-image.ailinyu.dpdns.org/
+https://ai-image.ailinyu.dpdns.org/
 ```
 
-这样 Web 端更新后，App 下次打开即可使用最新页面。
+打开 App 后就是移动端生图页面，Web 端更新后 App 也会自动使用最新版本。
 
-## 开发环境
+## 下载
 
-需要安装：
+测试包在 Release 里：
 
-- Node.js 20+
-- JDK 17 或 21
-- Android Studio
-- Android SDK / Platform Tools
+```text
+https://github.com/y08lin4/AI-Image-generate-APK/releases/tag/v0.1.0-debug
+```
 
-> 当前项目已经包含 Capacitor 配置和 Android 工程；如果本机没有 Android SDK，可以先用 Android Studio 打开 `android/` 后按提示安装 SDK。
+当前 APK：
 
-## 常用命令
+```text
+AI-Image-generate-debug.apk
+```
 
-安装依赖：
+> 这是 debug 测试包，适合自己安装测试；正式分发前建议再做 release 签名版。
+
+## 项目信息
+
+- App 名称：`AI Image Generate`
+- App ID：`com.ailinyu.aiimagegenerate`
+- 内嵌地址：`https://ai-image.ailinyu.dpdns.org/`
+- 技术方案：`Capacitor + Android WebView`
+
+## 本地打包
+
+需要安装 Node.js、JDK、Android Studio / Android SDK。
 
 ```bash
 npm install
-```
-
-同步 Capacitor 配置到 Android：
-
-```bash
 npm run sync
-```
-
-用 Android Studio 打开工程：
-
-```bash
-npm run open
-```
-
-构建 debug APK：
-
-```bash
 npm run android:build:debug
 ```
 
-构建产物通常在：
+APK 输出位置：
 
 ```text
 android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-## 修改内嵌 Web 地址
-
-编辑 `capacitor.config.json`：
-
-```json
-"server": {
-  "url": "https://ai-image.ailinyu.dpdns.org/",
-  "cleartext": false,
-  "androidScheme": "https"
-}
-```
-
-修改后执行：
+也可以用 Android Studio 打开：
 
 ```bash
-npm run sync
+npm run open
 ```
 
-## 注意事项
+## 自动打包
 
-- 建议使用 HTTPS 地址；当前配置不允许明文 HTTP。
-- API Key / URL / Worker 密码仍然保存在 WebView 本地存储里。
-- WebView 的本地历史和手机浏览器历史不是同一份。
-- 图片下载、剪贴板、文件选择建议在真机上完整测试。
-- 长时间生图时，请尽量保持 App 在前台，避免被系统后台限制中断。
-
-## GitHub Actions 自动打包
-
-仓库内置 `.github/workflows/build-apk.yml`，可以在 GitHub 页面手动运行：
+仓库已配置 GitHub Actions：
 
 ```text
 Actions -> Build Android APK -> Run workflow
 ```
 
-运行完成后，在 workflow 的 Artifacts 里下载：
+完成后在 Artifacts 下载 debug APK。
 
-```text
-ai-image-generate-debug-apk
-```
+## 备注
 
-其中包含 debug APK：
-
-```text
-app-debug.apk
-```
+- API Key、API URL、Worker 密码保存在 App WebView 本地存储里。
+- WebView 历史和手机浏览器历史不是同一份。
+- 长时间生图时建议保持 App 在前台。
