@@ -9,3 +9,5 @@ release*/
 .signing/
 android/keystore.properties
 android/app/keystore/
+ios/App/build/
+ios/App/DerivedData/

@@ -1,0 +1,76 @@
+name: Build iOS IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-ios:
+    name: Build unsigned IPA
+    runs-on: macos-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync Capacitor iOS project
+        run: npx cap sync ios
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          xcodebuild -version
+
+      - name: Resolve Swift packages
+        working-directory: ios/App
+        run: xcodebuild -project App.xcodeproj -scheme App -resolvePackageDependencies
+
+      - name: Build unsigned iOS app
+        working-directory: ios/App
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Package unsigned IPA
+        run: |
+          set -euo pipefail
+          APP_PATH="$(find "$HOME/Library/Developer/Xcode/DerivedData" -path '*/Build/Products/Release-iphoneos/App.app' -type d | head -n 1)"
+          if [ -z "$APP_PATH" ]; then
+            echo "App.app not found"
+            exit 1
+          fi
+
+          rm -rf release/ios Payload
+          mkdir -p release/ios Payload
+          cp -R "$APP_PATH" Payload/App.app
+          /usr/bin/zip -qry release/ios/AI-Image-generate-ios-unsigned.ipa Payload
+          rm -rf Payload
+
+      - name: Upload unsigned IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-image-generate-ios-unsigned-ipa
+          path: release/ios/AI-Image-generate-ios-unsigned.ipa
+          if-no-files-found: error

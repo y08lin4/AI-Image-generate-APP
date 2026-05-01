@@ -1,30 +1,35 @@
 {
-  "name": "ai-image-generate-apk",
+  "name": "ai-image-generate-app",
   "version": "1.0.0",
-  "description": "AI Image Generate 安卓 WebView 壳应用",
+  "description": "AI Image Generate 安卓 / iOS WebView 壳应用",
   "scripts": {
-    "sync": "cap sync android",
+    "sync": "cap sync",
     "open": "cap open android",
     "android:add": "cap add android",
     "android:build:debug": "cd android && gradlew.bat assembleDebug",
-    "android:build:release": "cd android && gradlew.bat assembleRelease"
+    "android:build:release": "cd android && gradlew.bat assembleRelease",
+    "android:sync": "cap sync android",
+    "ios:sync": "cap sync ios",
+    "ios:open": "cap open ios",
+    "ios:add": "cap add ios"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/y08lin4/AI-Image-generate-APK.git"
+    "url": "git+https://github.com/y08lin4/AI-Image-generate-APP.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/y08lin4/AI-Image-generate-APK/issues"
+    "url": "https://github.com/y08lin4/AI-Image-generate-APP/issues"
   },
-  "homepage": "https://github.com/y08lin4/AI-Image-generate-APK#readme",
+  "homepage": "https://github.com/y08lin4/AI-Image-generate-APP#readme",
   "dependencies": {
     "@capacitor/android": "^8.3.1",
     "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.3.1",
+    "@capacitor/ios": "^8.3.1",
     "@capacitor/splash-screen": "^8.0.1",
     "@capacitor/status-bar": "^8.0.2"
   },
