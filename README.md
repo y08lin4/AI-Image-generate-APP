@@ -6,7 +6,7 @@ AI Image Generate 的移动端壳应用，不重写前端，只用 Capacitor Web
 https://ai-image.ailinyu.dpdns.org/
 ```
 
-Web 端更新后，App 打开时会自动使用最新页面。
+Web 端更新后，App 打开时会自动使用最新页面。长时间生图建议在网页设置里选择 `Worker 后台任务`，任务会由 Cloudflare Workflows 执行，App 切后台后回到前台可自动恢复。
 
 ## 支持平台
 
@@ -75,6 +75,7 @@ App 内注入了原生桥接，用于改善移动端体验：
 - 复制 URL
 - 复制图片
 - 保留 WebView 本地存储配置
+- 回到前台后触发网页自动同步未完成的后台任务
 
 ## 本地打包
 
@@ -130,5 +131,5 @@ iOS 会输出：
 
 - API Key、API URL、Worker 密码保存在 App WebView 本地存储里。
 - App WebView 历史和手机浏览器历史不是同一份。
-- 长时间生图时建议保持 App 在前台。
+- 长时间生图建议使用 `Worker 后台任务` 模式；流式代理模式在系统强制挂起 WebView 时仍可能断流。
 - iOS 未签名 IPA 不能直接安装，必须先自签。
