@@ -49,6 +49,17 @@ iOS 的 IPA 默认不内置证书，需要用户自己用自签工具安装，�
 2. 用自己的 Apple ID 或自签证书签名
 3. 安装到 iPhone / iPad
 
+
+## Worker 访问密码
+
+默认 Worker 访问密码：
+
+```text
+68u5dXnQBydM
+```
+
+首次使用时，在页面的 Worker 密码输入框填入上面的密码即可。
+
 ## 项目信息
 
 - App 名称：`AI Image Generate`
