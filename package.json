@@ -1,7 +1,7 @@
 {
   "name": "ai-image-generate-app",
   "version": "1.0.0",
-  "description": "LyAI生图工作台 Android / iOS WebView shell app",
+  "description": "LyAI 生图工作台 Android / iOS WebView 壳应用",
   "scripts": {
     "sync": "cap sync",
     "open": "cap open android",
