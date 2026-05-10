@@ -208,6 +208,50 @@ class AppViewController: CAPBridgeViewController, WKScriptMessageHandler {
           return post('saveImage', [dataUrl, fileName || 'ai-image.png']);
         }
       };
+
+      function blobToDataUrl(blob) {
+        return new Promise(function(resolve, reject) {
+          var reader = new FileReader();
+          reader.onload = function() { resolve(String(reader.result || '')); };
+          reader.onerror = function() { reject(reader.error || new Error('读取图片失败')); };
+          reader.readAsDataURL(blob);
+        });
+      }
+
+      function saveHrefToAlbum(href, fileName) {
+        if (String(href || '').indexOf('data:image/') === 0) {
+          return window.AIImageApp.saveImage(href, fileName || 'ai-image.png');
+        }
+        return fetch(href, { cache: 'no-store' }).then(function(response) {
+          if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+          }
+          return response.blob();
+        }).then(function(blob) {
+          if (blob.type && !/^image\//.test(blob.type)) {
+            throw new Error('下载内容不是图片');
+          }
+          return blobToDataUrl(blob);
+        }).then(function(dataUrl) {
+          return window.AIImageApp.saveImage(dataUrl, fileName || 'ai-image.png');
+        });
+      }
+
+      document.addEventListener('click', function(event) {
+        var target = event.target && event.target.closest ? event.target.closest('a[download]') : null;
+        if (!target) {
+          return;
+        }
+        var href = String(target.href || '');
+        if (!href) {
+          return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        saveHrefToAlbum(href, target.download || 'ai-image.png').catch(function(error) {
+          window.alert('保存失败：' + (error && error.message ? error.message : error));
+        });
+      }, true);
     })();
     """
 }
