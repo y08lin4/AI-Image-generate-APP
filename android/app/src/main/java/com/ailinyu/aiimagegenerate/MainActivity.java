@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.core.content.FileProvider;
 
 import com.getcapacitor.BridgeActivity;
@@ -29,6 +30,27 @@ public class MainActivity extends BridgeActivity {
         super.onCreate(savedInstanceState);
         getBridge().getWebView().addJavascriptInterface(new AIImageAppBridge(this), "AIImageApp");
         injectWebFallbacks();
+        installBackHandler();
+    }
+
+    private void installBackHandler() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                dispatchBackToWeb();
+            }
+        });
+    }
+
+    private void dispatchBackToWeb() {
+        if (getBridge() == null || getBridge().getWebView() == null) {
+            finish();
+            return;
+        }
+        getBridge().getWebView().evaluateJavascript(
+            "window.__LyAIAppBack ? window.__LyAIAppBack('android-back') : false;",
+            null
+        );
     }
 
     private void injectWebFallbacks() {
@@ -121,10 +143,12 @@ public class MainActivity extends BridgeActivity {
         + "})();";
 
     public static class AIImageAppBridge {
+        private final MainActivity activity;
         private final Context context;
 
-        AIImageAppBridge(Context context) {
-            this.context = context.getApplicationContext();
+        AIImageAppBridge(MainActivity activity) {
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
         }
 
         @JavascriptInterface
@@ -205,6 +229,19 @@ public class MainActivity extends BridgeActivity {
             } catch (Exception e) {
                 return "error:" + e.getMessage();
             }
+        }
+
+        @JavascriptInterface
+        public String exitApp() {
+            android.os.Handler handler = new android.os.Handler(context.getMainLooper());
+            handler.post(() -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    activity.finishAndRemoveTask();
+                } else {
+                    activity.finish();
+                }
+            });
+            return "ok";
         }
 
         private void showToast(String text) {
