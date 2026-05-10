@@ -110,7 +110,7 @@ public class MainActivity extends BridgeActivity {
             try {
                 ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard == null) return "error:clipboard unavailable";
-                clipboard.setPrimaryClip(ClipData.newPlainText("AI Image Generate", text == null ? "" : text));
+                clipboard.setPrimaryClip(ClipData.newPlainText("LyAI生图工作台", text == null ? "" : text));
                 showToast("已复制");
                 return "ok";
             } catch (Exception e) {
@@ -133,7 +133,7 @@ public class MainActivity extends BridgeActivity {
                 Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
                 ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard == null) return "error:clipboard unavailable";
-                clipboard.setPrimaryClip(ClipData.newUri(context.getContentResolver(), "AI Image Generate", uri));
+                clipboard.setPrimaryClip(ClipData.newUri(context.getContentResolver(), "LyAI生图工作台", uri));
                 showToast("图片已复制");
                 return "ok:" + uri;
             } catch (Exception e) {
@@ -153,7 +153,7 @@ public class MainActivity extends BridgeActivity {
                     ContentValues values = new ContentValues();
                     values.put(MediaStore.Images.Media.DISPLAY_NAME, safeName);
                     values.put(MediaStore.Images.Media.MIME_TYPE, image.mime);
-                    values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/AI Image Generate");
+                    values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/LyAI生图工作台");
                     values.put(MediaStore.Images.Media.IS_PENDING, 1);
                     uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                     if (uri == null) return "error:create media item failed";
@@ -169,7 +169,7 @@ public class MainActivity extends BridgeActivity {
                 } else {
                     File dir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                     if (dir == null) return "error:external pictures directory unavailable";
-                    File appDir = new File(dir, "AI Image Generate");
+                    File appDir = new File(dir, "LyAI生图工作台");
                     if (!appDir.exists() && !appDir.mkdirs()) return "error:create pictures directory failed";
                     File file = new File(appDir, safeName);
                     try (FileOutputStream output = new FileOutputStream(file)) {

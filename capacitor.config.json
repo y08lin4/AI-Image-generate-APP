@@ -1,9 +1,9 @@
 {
   "appId": "com.ailinyu.aiimagegenerate",
-  "appName": "AI Image Generate",
+  "appName": "LyAI生图工作台",
   "webDir": "www",
   "server": {
-    "url": "https://ai-image.ailinyu.dpdns.org/",
+    "url": "https://ai-image.ailinyu.de/",
     "cleartext": false,
     "androidScheme": "https"
   },
