@@ -228,7 +228,7 @@ class AppViewController: CAPBridgeViewController, WKScriptMessageHandler {
           }
           return response.blob();
         }).then(function(blob) {
-          if (blob.type && !/^image\//.test(blob.type)) {
+          if (blob.type && !/^image\\//.test(blob.type)) {
             throw new Error('下载内容不是图片');
           }
           return blobToDataUrl(blob);
